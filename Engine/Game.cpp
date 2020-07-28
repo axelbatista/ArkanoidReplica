@@ -24,7 +24,10 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	brd(),
+	rec(),
+	paddle()
 {
 }
 
@@ -38,8 +41,21 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	for (const auto& each : rec.getRecs()) {
+		gfx.DrawRect(each.getSpot().x, each.getSpot().y, each.getSpot().x + 38, each.getSpot().y + 18, each.getColor());
+	}
+	gfx.DrawRect(paddle.getSpot().x, paddle.getSpot().y, paddle.getSpot().x + Paddle::width, paddle.getSpot().y + Paddle::height, paddle.getColor());
+	//paddle.move(wnd);
 }
 
 void Game::ComposeFrame()
 {
+	if (gameIsStarted) {
+		for (int i = 0; i < 80; i++) {
+			Rectangs tme = brd.chooseRandom();
+			rec.add(tme);
+		}
+		brd.removeVec();
+		gameIsStarted = false;
+	}
 }

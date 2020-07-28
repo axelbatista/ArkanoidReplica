@@ -331,7 +331,7 @@ void Graphics::DrawRect( int x0,int y0,int x1,int y1,Color c )
 	{
 		for( int x = x0; x < x1; ++x )
 		{
-			PutPixel( x,y,c );
+				PutPixel(x, y, c);
 		}
 	}
 }

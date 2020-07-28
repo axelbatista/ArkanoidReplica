@@ -23,6 +23,9 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Board.h"
+#include "Rectangle.h"
+#include "Paddle.h"
 
 class Game
 {
@@ -40,6 +43,10 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
+	Board brd;
+	Rectangulars rec;
+	Paddle paddle;
+	bool gameIsStarted = true;
 	/********************************/
 	/*  User Variables              */
 	/********************************/
