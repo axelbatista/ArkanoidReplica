@@ -1,14 +1,18 @@
 #include "Paddle.h"
 
 
-void Paddle::move(const MainWindow& wnd)
-{
-	if (wnd.mouse.IsInWindow()) {
-		if (spot.x + wnd.mouse.GetPosX() < 0)
-			spot.x == 0;
-		else if (spot.x + wnd.mouse.GetPosX() > 740)
-			spot.x == 739;
-		spot.x += wnd.mouse.GetPosX();
+void Paddle::move(const Mouse& mouse)
+{	
+	if (mouse.GetPosX() < 30) {
+		center.x = 30;
+		spot.x = center.x - 30;
+	}
+	else if (mouse.GetPosX() > 770) {
+		center.x = 770;
+		spot.x = center.x - 30;
+	} else {
+		center.x = mouse.GetPosX();
+		spot.x = center.x - 30;
 	}
 }
 

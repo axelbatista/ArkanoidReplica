@@ -26,6 +26,7 @@
 #include "Board.h"
 #include "Rectangle.h"
 #include "Paddle.h"
+#include "Ball.h"
 
 class Game
 {
@@ -47,6 +48,7 @@ private:
 	Rectangulars rec;
 	Paddle paddle;
 	bool gameIsStarted = true;
+	Ball ball;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

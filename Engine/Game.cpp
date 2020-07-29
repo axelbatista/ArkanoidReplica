@@ -21,13 +21,14 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd ),
+	wnd(wnd),
+	gfx(wnd),
 	brd(),
 	rec(),
-	paddle()
+	paddle(),
+	ball()
 {
 }
 
@@ -45,7 +46,8 @@ void Game::UpdateModel()
 		gfx.DrawRect(each.getSpot().x, each.getSpot().y, each.getSpot().x + 38, each.getSpot().y + 18, each.getColor());
 	}
 	gfx.DrawRect(paddle.getSpot().x, paddle.getSpot().y, paddle.getSpot().x + Paddle::width, paddle.getSpot().y + Paddle::height, paddle.getColor());
-	//paddle.move(wnd);
+	paddle.move(wnd.mouse);
+	gfx.DrawCircle(ball.getSpot().x, ball.getSpot().y, ball.getSize(), ball.getColor());
 }
 
 void Game::ComposeFrame()
