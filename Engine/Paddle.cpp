@@ -3,6 +3,7 @@
 
 void Paddle::move(const Mouse& mouse)
 {	
+	x = spot.x;
 	if (mouse.GetPosX() < 30) {
 		center.x = 30;
 		spot.x = center.x - 30;

@@ -8,7 +8,7 @@ class Board {
 	static constexpr int width = 40;
 	static constexpr int height = 20;
 	static constexpr int howManyX = Graphics::ScreenWidth / width;
-	static constexpr int howManyY = 18;
+	static constexpr int howManyY = 15;
 	std::vector<Rectangs> space;
 	int size;
 

@@ -27,6 +27,7 @@
 #include "Rectangle.h"
 #include "Paddle.h"
 #include "Ball.h"
+#include "Sound.h"
 
 class Game
 {
@@ -49,6 +50,8 @@ private:
 	Paddle paddle;
 	bool gameIsStarted = true;
 	Ball ball;
+	bool initial = true;
+	Sound sound1;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

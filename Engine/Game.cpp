@@ -20,6 +20,8 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "Colliding.h"
+#include "SpriteCodex.h"
 
 Game::Game(MainWindow& wnd)
 	:
@@ -28,7 +30,8 @@ Game::Game(MainWindow& wnd)
 	brd(),
 	rec(),
 	paddle(),
-	ball()
+	ball(),
+	sound1(L"Sounds\\arkpad.wav")
 {
 }
 
@@ -47,7 +50,16 @@ void Game::UpdateModel()
 	}
 	gfx.DrawRect(paddle.getSpot().x, paddle.getSpot().y, paddle.getSpot().x + Paddle::width, paddle.getSpot().y + Paddle::height, paddle.getColor());
 	paddle.move(wnd.mouse);
-	gfx.DrawCircle(ball.getSpot().x, ball.getSpot().y, ball.getSize(), ball.getColor());
+	SpriteCodex::DrawBall(ball.getSpot(), gfx);
+	if (!initial)
+	ball.move();
+	ball.isTouchingWall();
+	if (Colliding::isTouching(ball, paddle)) {
+		ball.setDir(1, -1);
+		if (!initial)
+		sound1.Play();
+	}
+	rec.isTouchingRecs(ball);
 }
 
 void Game::ComposeFrame()
@@ -59,5 +71,11 @@ void Game::ComposeFrame()
 		}
 		brd.removeVec();
 		gameIsStarted = false;
+	}
+	if (initial) {
+		if (wnd.kbd.KeyIsPressed(VK_SPACE) && Colliding::isTouching(ball,paddle)) {
+			Colliding::applyBall(ball, paddle);
+			initial = false;
+		}
 	}
 }
