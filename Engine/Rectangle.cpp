@@ -10,8 +10,9 @@ std::vector<Rectangs> Rectangulars::getRecs() const
 	return recs;
 }
 
-void Rectangulars::isTouchingRecs(Ball& ball) const
+bool Rectangulars::isTouchingRecs(Ball& ball) const
 {
+	bool start = false;
 	int top = ball.getSpot().y - 5;
 	int bound = ball.getSpot().x;
 	int sideR = bound + 5;
@@ -24,21 +25,25 @@ void Rectangulars::isTouchingRecs(Ball& ball) const
 		if (bound >= spoto.x && bound <= spoto.x + 40 && top == spoto.y + 20) {
 			ball.setDir(1, -1);
 			each.reduceHealth();
-			
+			start = true;
 		}
 		else if (sideL == spoto.x + 40 && bound2 >= spoto.y && bound2 <= spoto.y + 20) {
 			ball.setDir(-1, 1);
 			each.reduceHealth();
+			start = true;
 		}
 		else if (bottom == spoto.y && bound >= spoto.x && bound <= spoto.x + 40) {
 			ball.setDir(1, -1);
 			each.reduceHealth();
+			start = true;
 		}
 		else if (sideR == spoto.x && bound2 >= spoto.y && bound2 <= spoto.y + 20) {
 			ball.setDir(-1, 1);
 			each.reduceHealth();
+			start = true;
 		}
 	}
+	return start;
 }
 
 void Rectangulars::getRid(int n)

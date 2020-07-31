@@ -52,6 +52,7 @@ private:
 	Ball ball;
 	bool initial = true;
 	Sound sound1;
+	Sound sound2;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

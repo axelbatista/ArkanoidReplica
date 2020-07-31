@@ -31,7 +31,8 @@ Game::Game(MainWindow& wnd)
 	rec(),
 	paddle(),
 	ball(),
-	sound1(L"Sounds\\arkpad.wav")
+	sound1(L"Sounds\\arkpad.wav"),
+	sound2(L"Sounds\\arkbrick.wav")
 {
 }
 
@@ -59,7 +60,8 @@ void Game::UpdateModel()
 		if (!initial)
 		sound1.Play();
 	}
-	rec.isTouchingRecs(ball);
+	if (rec.isTouchingRecs(ball))
+		sound2.Play();
 }
 
 void Game::ComposeFrame()
