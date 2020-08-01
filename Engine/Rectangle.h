@@ -34,6 +34,6 @@ public:
 	Rectangulars() {}
 	void add(const Rectangs& part);
 	std::vector<Rectangs> getRecs() const;
-	bool isTouchingRecs(Ball& ball) const;
-	void getRid(int n);
+	bool isTouchingRecs(Ball& ball);
+
 };

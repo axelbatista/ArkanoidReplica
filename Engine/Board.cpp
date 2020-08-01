@@ -11,7 +11,7 @@ Board::Board()
 {
 	for (int i = 0; i < howManyX; i++) {
 		for (int j = 2; j < howManyY; j++) {
-			space.push_back(Rectangs(i * width, j * height));
+			space.emplace_back(Rectangs(i * width, j * height));
 		}
 	}
 	size = space.size();
@@ -22,9 +22,8 @@ Rectangs Board::chooseRandom()
 	std::uniform_int_distribution<int> choice(0, size-1);
 	size--;
 	int rand = choice(randol::mt);
-	Rectangs pick = { space.at(rand) };
 	space.erase(space.begin() + rand);
-	return pick;
+	return space.at(rand);
 }
 
 void Board::removeVec()

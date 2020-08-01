@@ -2,7 +2,7 @@
 
 void Rectangulars::add(const Rectangs& part)
 {
-	recs.push_back(part);
+	recs.emplace_back(part);
 }
 
 std::vector<Rectangs> Rectangulars::getRecs() const
@@ -10,45 +10,37 @@ std::vector<Rectangs> Rectangulars::getRecs() const
 	return recs;
 }
 
-bool Rectangulars::isTouchingRecs(Ball& ball) const
+bool Rectangulars::isTouchingRecs(Ball& ball) 
 {
 	bool start = false;
-	int top = ball.getSpot().y - 5;
-	int bound = ball.getSpot().x;
-	int sideR = bound + 5;
-	int sideL = bound - 5;
-	int bottom = top + 10;
-	int bound2 = top + 5;
-	int n = 0;
-	for (auto each : recs) {
-		Vec2 spoto = each.getSpot();
-		if (bound >= spoto.x && bound <= spoto.x + 40 && top == spoto.y + 20) {
+	int boundx = ball.getSpot().x;
+	int boundy = ball.getSpot().y;
+	for (int i = 0; i < recs.size(); i++) {
+		Vec2 spoto = recs[i].getSpot();
+		if (boundx >= spoto.x && boundx <= spoto.x + 40 && boundy <= spoto.y + 20 && boundy >= spoto.y + 16) {
 			ball.setDir(1, -1);
-			each.reduceHealth();
+			recs[i].reduceHealth();
 			start = true;
 		}
-		else if (sideL == spoto.x + 40 && bound2 >= spoto.y && bound2 <= spoto.y + 20) {
+		else if (boundx >= spoto.x + 36 && boundx <= spoto.x + 40 && boundy >= spoto.y && boundy <= spoto.y + 20) {
 			ball.setDir(-1, 1);
-			each.reduceHealth();
+			recs[i].reduceHealth();
 			start = true;
 		}
-		else if (bottom == spoto.y && bound >= spoto.x && bound <= spoto.x + 40) {
+		else if (boundy <= spoto.y + 4 && boundy >= spoto.y && boundx >= spoto.x && boundx <= spoto.x + 40) {
 			ball.setDir(1, -1);
-			each.reduceHealth();
+			recs[i].reduceHealth();
 			start = true;
 		}
-		else if (sideR == spoto.x && bound2 >= spoto.y && bound2 <= spoto.y + 20) {
+		else if (boundx <= spoto.x + 4 && boundx >= spoto.x && boundy >= spoto.y && boundy <= spoto.y + 20) {
 			ball.setDir(-1, 1);
-			each.reduceHealth();
+			recs[i].reduceHealth();
 			start = true;
 		}
+		if (recs[i].getHealth() == 0)
+			recs.erase(recs.begin() + i);
 	}
 	return start;
-}
-
-void Rectangulars::getRid(int n)
-{
-	recs.erase(recs.begin() + n);
 }
 
 Vec2 Rectangs::getSpot() const

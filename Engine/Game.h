@@ -48,7 +48,6 @@ private:
 	Board brd;
 	Rectangulars rec;
 	Paddle paddle;
-	bool gameIsStarted = true;
 	Ball ball;
 	bool initial = true;
 	Sound sound1;

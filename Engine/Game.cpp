@@ -34,6 +34,10 @@ Game::Game(MainWindow& wnd)
 	sound1(L"Sounds\\arkpad.wav"),
 	sound2(L"Sounds\\arkbrick.wav")
 {
+	for (int i = 0; i < 80; i++) {
+		rec.add(brd.chooseRandom());
+	}
+	brd.removeVec();
 }
 
 void Game::Go()
@@ -57,23 +61,15 @@ void Game::UpdateModel()
 	ball.isTouchingWall();
 	if (Colliding::isTouching(ball, paddle)) {
 		ball.setDir(1, -1);
-		if (!initial)
-		sound1.Play();
+		/*if (!initial)
+		sound1.Play();*/
 	}
-	if (rec.isTouchingRecs(ball))
-		sound2.Play();
+	rec.isTouchingRecs(ball);
+		//sound2.Play();
 }
 
 void Game::ComposeFrame()
 {
-	if (gameIsStarted) {
-		for (int i = 0; i < 80; i++) {
-			Rectangs tme = brd.chooseRandom();
-			rec.add(tme);
-		}
-		brd.removeVec();
-		gameIsStarted = false;
-	}
 	if (initial) {
 		if (wnd.kbd.KeyIsPressed(VK_SPACE) && Colliding::isTouching(ball,paddle)) {
 			Colliding::applyBall(ball, paddle);
