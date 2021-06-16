@@ -26,3 +26,8 @@ const Color Paddle::getColor() const
 {
 	return c;
 }
+
+void Paddle::draw(Graphics& gfx)
+{
+	gfx.DrawRect(spot.x, spot.y, spot.x + Paddle::width, spot.y + Paddle::height, c);
+}

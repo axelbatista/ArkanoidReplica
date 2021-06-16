@@ -17,4 +17,5 @@ public:
 	void move(const Mouse& mouse);
 	const Vec2 getSpot() const;
 	const Color getColor() const;
+	void draw(Graphics& gfx);
 };

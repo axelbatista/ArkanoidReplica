@@ -26,6 +26,16 @@ void Ball::setDir(float x, float y) {
     direction.y *= y;
 }
 
+const bool Ball::isStarted() const
+{
+    return ignited;
+}
+
+void Ball::setState()
+{
+    ignited = true;
+}
+
 void Ball::move()
 {
     spot.x += direction.x;
@@ -34,7 +44,7 @@ void Ball::move()
 
 const void Ball::isTouchingWall()
 {
-    if (spot.x + 5 >= 795 || spot.x - 5 <= 5)
+    if (spot.x + 5 >= 795 || spot.x - 5 <= 5)               //magic values but they are essentially the dimensions for the window - 5.
         direction.x *= -1;
     else if (spot.y - 5 <= 5 || spot.y + 5 >= 595)
         direction.y *= -1;

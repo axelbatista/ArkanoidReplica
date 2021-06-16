@@ -9,6 +9,7 @@ const bool Colliding::isTouching(const Ball& ball, const Paddle& paddle)
 
 const void Colliding::applyBall(Ball& ball, const Paddle& paddle)
 {
+        ball.setState();
         if (ball.getSpot().x >= paddle.getSpot().x + 30) {
             ball.setDir(5.0f);
         } else {

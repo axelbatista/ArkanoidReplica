@@ -1,6 +1,6 @@
 /****************************************************************************************** 
  *	Chili DirectX Framework Version 16.07.20											  *	
- *	Game.cpp																			  *
+ *	Game.h																				  *
  *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
  *																						  *
  *	This file is part of The Chili DirectX Framework.									  *
@@ -18,62 +18,38 @@
  *	You should have received a copy of the GNU General Public License					  *
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
-#include "MainWindow.h"
-#include "Game.h"
-#include "Colliding.h"
-#include "SpriteCodex.h"
+#pragma once
 
-Game::Game(MainWindow& wnd)
-	:
-	wnd(wnd),
-	gfx(wnd),
-	brd(),
-	rec(),
-	paddle(),
-	ball(),
-	sound1(L"Sounds\\arkpad.wav"),
-	sound2(L"Sounds\\arkbrick.wav")
-{
-	for (int i = 0; i < 80; i++) {
-		rec.add(brd.chooseRandom());
-	}
-	brd.removeVec();
-}
+#include "Keyboard.h"
+#include "Mouse.h"
+#include "Graphics.h"
+#include "Rectangle.h"
+#include "Paddle.h"
+#include "Ball.h"
+#include "Sound.h"
 
-void Game::Go()
+class Game
 {
-	gfx.BeginFrame();	
-	UpdateModel();
-	ComposeFrame();
-	gfx.EndFrame();
-}
-
-void Game::UpdateModel()
-{
-	for (const auto& each : rec.getRecs()) {
-		gfx.DrawRect(each.getSpot().x, each.getSpot().y, each.getSpot().x + 38, each.getSpot().y + 18, each.getColor());
-	}
-	gfx.DrawRect(paddle.getSpot().x, paddle.getSpot().y, paddle.getSpot().x + Paddle::width, paddle.getSpot().y + Paddle::height, paddle.getColor());
-	paddle.move(wnd.mouse);
-	SpriteCodex::DrawBall(ball.getSpot(), gfx);
-	if (!initial)
-	ball.move();
-	ball.isTouchingWall();
-	if (Colliding::isTouching(ball, paddle)) {
-		ball.setDir(1, -1);
-		/*if (!initial)
-		sound1.Play();*/
-	}
-	rec.isTouchingRecs(ball);
-		//sound2.Play();
-}
-
-void Game::ComposeFrame()
-{
-	if (initial) {
-		if (wnd.kbd.KeyIsPressed(VK_SPACE) && Colliding::isTouching(ball,paddle)) {
-			Colliding::applyBall(ball, paddle);
-			initial = false;
-		}
-	}
-}
+public:
+	Game( class MainWindow& wnd );
+	Game( const Game& ) = delete;
+	Game& operator=( const Game& ) = delete;
+	void Go();
+private:
+	void ComposeFrame();
+	void UpdateModel();
+	/********************************/
+	/*  User Functions              */
+	/********************************/
+private:
+	MainWindow& wnd;
+	Graphics gfx;
+	Rectangulars rec;
+	Paddle paddle;
+	Ball ball;
+	Sound sound1;
+	Sound sound2;
+	/********************************/
+	/*  User Variables              */
+	/********************************/
+};
